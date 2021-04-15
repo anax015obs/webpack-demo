@@ -1,16 +1,29 @@
-import _ from "lodash";
-import "./style.css";
+// import "./style.css";
 import SadPepe from "./sad-pepe.png";
+import _ from "lodash";
+import print from "./print";
 
-const component = () => {
+const getComponent = async () => {
+  console.log(_.join(["get component..."]));
   const element = document.createElement("div");
-  element.innerHTML = _.join(["Hello", "webpack!"], " ");
+  element.innerHTML = "Hello webpack! v8";
   element.classList.add("hello");
 
   const img = new Image();
   img.src = SadPepe;
+
+  const button = document.createElement("button");
+  button.innerHTML = "Click me and check the console!";
+  button.addEventListener("click", async () => {
+    await import("antd");
+    print();
+  });
+
   element.appendChild(img);
+  element.appendChild(button);
   return element;
 };
 
-document.body.appendChild(component());
+getComponent().then((component) => {
+  document.body.appendChild(component);
+});
